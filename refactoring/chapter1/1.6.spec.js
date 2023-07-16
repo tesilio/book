@@ -38,6 +38,14 @@ const samplePlaysData = () => {
   };
 };
 
+const sampleStatementData = () => {
+  const invoiceData = sampleInvoiceData();
+  return {
+    customer: invoiceData.customer,
+    performances: invoiceData.performances,
+  };
+};
+
 const expectedResult = () => {
   return `청구 내역 (고객명: BigCo)
   Hamlet: $650.00 (55)석)
@@ -66,12 +74,11 @@ describe('1.6.js 테스트', () => {
   describe('renderPlainText', () => {
     it('예상한 값과 일치한다', () => {
       // Given
-      const data = {};
-      const invoice = sampleInvoiceData();
+      const data = sampleStatementData();
       const plays = samplePlaysData();
 
       // When
-      const result = renderPlainText(data, invoice, plays);
+      const result = renderPlainText(data, plays);
 
       // Then
       expect(result).equal(expectedResult());
