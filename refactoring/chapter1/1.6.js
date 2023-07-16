@@ -8,6 +8,7 @@ function statement(invoice, plays) {
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
     result.play = playFor(result); // 중간 데이터에 연극 정보를 저장
     result.amount = amountFor(result);
+    result.volumeCredits = volumeCreditsFor(result);
     return result;
   }
 
@@ -37,6 +38,18 @@ function statement(invoice, plays) {
     }
     return result;
   }
+
+  function volumeCreditsFor(aPerformance) {
+    let result = 0;
+    // 포인트를 적립한다.
+    result += Math.max(aPerformance.audience - 30, 0);
+
+    // 희극 관객 5명마다 추가 포인트를 제공한다.
+    if ('comedy' === aPerformance.play.type) {
+      result += Math.floor(aPerformance.audience / 5);
+    }
+    return result;
+  }
 }
 
 function renderPlainText(data) {
@@ -63,7 +76,7 @@ function renderPlainText(data) {
     let result = 0;
     for (let perf of data.performances) {
       // 포인트를 적립한다.
-      result += volumeCreditsFor(perf);
+      result += perf.volumeCredits;
     }
     return result;
   }
@@ -74,18 +87,6 @@ function renderPlainText(data) {
       currency: 'USD',
       minimumFractionDigits: 2,
     }).format(aNumber / 100);
-  }
-
-  function volumeCreditsFor(aPerformance) {
-    let result = 0;
-    // 포인트를 적립한다.
-    result += Math.max(aPerformance.audience - 30, 0);
-
-    // 희극 관객 5명마다 추가 포인트를 제공한다.
-    if ('comedy' === aPerformance.play.type) {
-      result += Math.floor(aPerformance.audience / 5);
-    }
-    return result;
   }
 }
 
