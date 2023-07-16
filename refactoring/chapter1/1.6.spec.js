@@ -28,21 +28,13 @@ const samplePlaysData = () => {
       type: 'tragedy',
     },
     'as-like': {
-      'name': 'As You Like It',
-      'type': 'comedy',
+      name: 'As You Like It',
+      type: 'comedy',
     },
     othello: {
       name: 'Othello',
       type: 'tragedy',
     },
-  };
-};
-
-const sampleStatementData = () => {
-  const invoiceData = sampleInvoiceData();
-  return {
-    customer: invoiceData.customer,
-    performances: invoiceData.performances,
   };
 };
 
@@ -65,20 +57,6 @@ describe('1.6.js 테스트', () => {
 
       // When
       const result = statement(invoice, plays);
-
-      // Then
-      expect(result).equal(expectedResult());
-    });
-  });
-
-  describe('renderPlainText', () => {
-    it('예상한 값과 일치한다', () => {
-      // Given
-      const data = sampleStatementData();
-      const plays = samplePlaysData();
-
-      // When
-      const result = renderPlainText(data, plays);
 
       // Then
       expect(result).equal(expectedResult());
