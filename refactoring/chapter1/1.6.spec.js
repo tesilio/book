@@ -1,5 +1,5 @@
-const { assert, expect } = require('chai');
-const { statement, renderPlainText } = require('./1.6');
+const { expect } = require('chai');
+const { statement } = require('./1.6');
 
 const sampleInvoiceData = () => {
   return {
