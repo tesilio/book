@@ -1,5 +1,5 @@
 const { assert, expect } = require('chai');
-const { statement } = require('./1.5');
+const { statement } = require('./1.5.js');
 
 const sampleInvoiceData = () => {
   return {

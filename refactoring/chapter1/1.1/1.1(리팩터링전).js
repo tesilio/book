@@ -47,8 +47,8 @@ function statement(invoice, plays) {
   return result;
 }
 
-const a = require('./invoices.json');
-const b = require('./plays.json');
+const a = require('../invoices.json');
+const b = require('../plays.json');
 
 const result = statement(a[0], b);
 console.log(result);
