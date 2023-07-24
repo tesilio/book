@@ -1,10 +1,10 @@
 export default function createStatementData(invoice, plays) {
   const result = {};
-    result.customer = invoice.customer;
-    result.performances = invoice.performances.map(enrichPerformance);
-    result.totalAmount = totalAmount(result);
-    result.totalVolumeCredits = totalVolumeCredits(result);
-    return result;
+  result.customer = invoice.customer;
+  result.performances = invoice.performances.map(enrichPerformance);
+  result.totalAmount = totalAmount(result);
+  result.totalVolumeCredits = totalVolumeCredits(result);
+  return result;
 
   function enrichPerformance(aPerformance) {
     const calculator = createPerformanceCalculator(aPerformance, playFor(aPerformance));
@@ -38,10 +38,6 @@ export default function createStatementData(invoice, plays) {
   }
 }
 
-function createPerformanceCalculator(aPerformance, aPlay) {
-  return new PerformanceCalculator(aPerformance, aPlay);
-}
-
 /**
  * 공연료 계산기 클래스
  */
@@ -55,11 +51,7 @@ class PerformanceCalculator {
     let result = 0;
     switch (this.play.type) {
       case 'tragedy': // 비극
-        result = 40000;
-        if (this.performance.audience > 30) {
-          result += 1000 * (this.performance.audience - 30);
-        }
-        break;
+        throw '오류 발생';
       case 'comedy': // 희극
         result = 30000;
         if (this.performance.audience > 20) {
@@ -84,4 +76,28 @@ class PerformanceCalculator {
     }
     return result;
   }
+}
+
+function createPerformanceCalculator(aPerformance, aPlay) {
+  switch (aPlay.type) {
+    case 'tragedy':
+      return new TragedyCalculator(aPerformance, aPlay);
+    case 'comedy':
+      return new ComedyCalculator(aPerformance, aPlay);
+    default:
+      throw new Error(`알 수 없는 장르: ${aPlay.type}`);
+  }
+}
+
+class TragedyCalculator extends PerformanceCalculator {
+  get amount() {
+    let result = 40000;
+    if (this.performance.audience > 30) {
+      result += 1000 * (this.performance.audience - 30);
+    }
+    return result;
+  }
+}
+
+class ComedyCalculator extends PerformanceCalculator {
 }
