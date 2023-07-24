@@ -77,20 +77,17 @@ const expectedResult = () => {
     'totalVolumeCredits': 47,
   };
 }
+describe('createStatementData', () => {
+  it('예상한 값과 일치한다', () => {
+    // Given
+    const invoice = sampleInvoiceData();
+    const plays = samplePlaysData();
 
-describe('1.6.js 테스트', () => {
-  describe('createStatementData', () => {
-    it('예상한 값과 일치한다', () => {
-      // Given
-      const invoice = sampleInvoiceData();
-      const plays = samplePlaysData();
+    // When
+    const result = createStatementData(invoice, plays);
 
-      // When
-      const result = createStatementData(invoice, plays);
-
-      // Then
-      expect(result).deep.equal(expectedResult());
-    });
+    // Then
+    expect(result).deep.equal(expectedResult());
   });
 });
 

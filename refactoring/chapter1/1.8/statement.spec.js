@@ -48,21 +48,18 @@ const expectedResult = () => {
 `;
 };
 
-describe('1.6.js 테스트', () => {
-  describe('statement', () => {
-    it('예상한 값과 일치한다', () => {
-      // Given
-      const invoice = sampleInvoiceData();
-      const plays = samplePlaysData();
+describe('statement', () => {
+  it('예상한 값과 일치한다', () => {
+    // Given
+    const invoice = sampleInvoiceData();
+    const plays = samplePlaysData();
 
-      // When
-      const result = statement(invoice, plays);
+    // When
+    const result = statement(invoice, plays);
 
-      // Then
-      expect(result).equal(expectedResult());
-    });
+    // Then
+    expect(result).equal(expectedResult());
   });
 });
-
 
 

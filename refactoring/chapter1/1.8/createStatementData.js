@@ -19,15 +19,6 @@ export default function createStatementData(invoice, plays) {
     return plays[aPerformance.playID];
   }
 
-  // 한 번의 공연에 대한 요금을 계산하는 함수 -> switch 문에서 추출함
-  function amountFor(aPerformance) { // 값이 바뀌지 않는 변수는 매개변수로 전달
-    return new PerformanceCalculator(aPerformance, playFor(aPerformance)).amount;
-  }
-
-  function volumeCreditsFor(aPerformance) {
-    return new PerformanceCalculator(aPerformance, playFor(aPerformance)).volumeCredits;
-
-  }
 
   function totalAmount(data) {
     return data.performances.reduce((total, p) => total + p.amount, 0);
@@ -35,6 +26,17 @@ export default function createStatementData(invoice, plays) {
 
   function totalVolumeCredits(data) {
     return data.performances.reduce((total, p) => total + p.volumeCredits, 0)
+  }
+}
+
+function createPerformanceCalculator(aPerformance, aPlay) {
+  switch (aPlay.type) {
+    case 'tragedy':
+      return new TragedyCalculator(aPerformance, aPlay);
+    case 'comedy':
+      return new ComedyCalculator(aPerformance, aPlay);
+    default:
+      throw new Error(`알 수 없는 장르: ${aPlay.type}`);
   }
 }
 
@@ -53,17 +55,6 @@ class PerformanceCalculator {
 
   get volumeCredits() {
     return Math.max(this.performance.audience - 30, 0);
-  }
-}
-
-function createPerformanceCalculator(aPerformance, aPlay) {
-  switch (aPlay.type) {
-    case 'tragedy':
-      return new TragedyCalculator(aPerformance, aPlay);
-    case 'comedy':
-      return new ComedyCalculator(aPerformance, aPlay);
-    default:
-      throw new Error(`알 수 없는 장르: ${aPlay.type}`);
   }
 }
 
