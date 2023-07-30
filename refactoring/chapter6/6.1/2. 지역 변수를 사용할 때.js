@@ -8,6 +8,12 @@ function printDetails(invoice, outstanding) {
   console.log(`마감일: ${invoice.dueDate.toLocaleTimeString()}`);
 }
 
+function recordDueDate(invoice) {
+  // 마감일(dueDate)을 기록한다.
+  const today = Clock.today;
+  invoice.dueDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 30);
+}
+
 function printOwing(invoice) {
   let outstanding = 0;
 
@@ -24,10 +30,7 @@ function printOwing(invoice) {
     outstanding += o.amount;
   }
 
-  // 마감일(dueDate)을 기록한다.
-  const today = Clock.today;
-  invoice.dueDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 30);
+  recordDueDate(invoice);
 
-  // 세부 사항을 출력(첫 번째 예제와 달리 지역 변수를 매개변수로 전달)
   printDetails(invoice, outstanding);
 }
