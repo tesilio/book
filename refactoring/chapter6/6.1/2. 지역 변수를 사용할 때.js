@@ -2,6 +2,12 @@ const Clock = {
   today: new Date(),
 };
 
+function printDetails(invoice, outstanding) {
+  console.log(`고객명: ${invoice.customer}`);
+  console.log(`채무액: ${outstanding}`);
+  console.log(`마감일: ${invoice.dueDate.toLocaleTimeString()}`);
+}
+
 function printOwing(invoice) {
   let outstanding = 0;
 
@@ -22,8 +28,6 @@ function printOwing(invoice) {
   const today = Clock.today;
   invoice.dueDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 30);
 
-  // 세부 사항을 출력한다.
-  console.log(`고객명: ${invoice.customer}`);
-  console.log(`채무액: ${outstanding}`);
-  console.log(`마감일: ${invoice.dueDate.toLocaleTimeString()}`);
+  // 세부 사항을 출력(첫 번째 예제와 달리 지역 변수를 매개변수로 전달)
+  printDetails(invoice, outstanding);
 }
