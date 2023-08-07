@@ -33,3 +33,15 @@ function readingsOutsideRange(station, min, max) {
 
 const alerts = readingsOutsideRange(station, 50, 51);
 console.log(alerts);
+
+class NumberRange {
+  constructor(min, max) {
+    this._data = { min, max };
+  }
+  get min() {
+    return this._data.min;
+  }
+  get max() {
+    return this._data.max;
+  }
+}
