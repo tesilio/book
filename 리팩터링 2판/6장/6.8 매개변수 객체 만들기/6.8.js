@@ -37,13 +37,17 @@ class NumberRange {
   get max() {
     return this._data.max;
   }
+
+  contains(arg) {
+    return (arg >= this.min && arg <= this.max);
+  }
 }
 
 function readingsOutsideRange(station, range) {
-  return station.readings.filter(r => r.temp < range.min || r.temp < range.max);
+  return station.readings.filter(r => !range.contains(r.temp));
 }
 
-const range = new NumberRange(40, 50);
+const range = new NumberRange(50, 60);
 const alerts = readingsOutsideRange(station, range);
 console.log(alerts);
 
