@@ -39,12 +39,12 @@ class NumberRange {
   }
 }
 
-function readingsOutsideRange(station, min, range) {
-  return station.readings.filter(r => r.temp < min || r.temp < range.max);
+function readingsOutsideRange(station, range) {
+  return station.readings.filter(r => r.temp < range.min || r.temp < range.max);
 }
 
 const range = new NumberRange(40, 50);
-const alerts = readingsOutsideRange(station, 50, range);
+const alerts = readingsOutsideRange(station, range);
 console.log(alerts);
 
 
