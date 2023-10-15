@@ -7,7 +7,7 @@ import { expect } from 'chai';
  * 위험요소로는 항해 경로의 자연조건과 선장의 항해 이력을 고려한다
  */
 function rating(voyage, history) { // 투자 등급
-  return new Rating(voyage, history).value;
+  return new createRating(voyage, history).value;
 }
 
 // info: 1. 함수들을 Rating 클래스로 묶음
@@ -94,6 +94,17 @@ class Rating {
 
   get hasChinaHistory() {
     return this.history.some(v => '중국' === v.zone);
+  }
+}
+
+// info: 변형 동작을 담을 빈 서브클래스 만들기
+class ExperiencedChinaRating extends Rating {}
+
+function createRating(voyage, history) {
+  if (voyage.zone === '중국' && history.some(v => '중국' === v.zone)) {
+    return new ExperiencedChinaRating(voyage, history);
+  } else {
+    return new Rating(voyage, history);
   }
 }
 
