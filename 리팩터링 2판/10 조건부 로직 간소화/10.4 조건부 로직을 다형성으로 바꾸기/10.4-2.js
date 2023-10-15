@@ -63,6 +63,12 @@ class Rating {
       result += 1;
     }
 
+    result += this.voyageAndHistoryLengthFactor;
+    return result;
+  }
+
+  get voyageAndHistoryLengthFactor() {
+    let result = 0;
     if (this.voyage.zone === '중국' && this.hasChinaHistory) {
       result += 3;
 
