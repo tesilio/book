@@ -63,18 +63,13 @@ class Rating {
       result += 1;
     }
 
-    result += this.voyageAndHistoryLengthFactor;
+    result += this.historyLengthFactor;
+    result += this.voyageLengthFactor;
     return result;
   }
 
-  get voyageAndHistoryLengthFactor() {
-    let result = 0;
-    result += this.historyLengthFactor;
-
-    if (this.voyage.length > 14) {
-      result -= 1;
-    }
-    return result;
+  get voyageLengthFactor() {
+    return this.voyage.length > 14 ? -1 : 0;
   }
 
   get historyLengthFactor() {
@@ -82,18 +77,15 @@ class Rating {
   }
 }
 
-// info: 변형 동작을 담을 빈 서브클래스 만들기
+// info: 변형 동작을 담을 빈 서브클래스 만들기(중국)
 class ExperiencedChinaRating extends Rating {
   get captainHistoryRisk() {
     const result = super.captainHistoryRisk - 2;
     return Math.max(result, 0);
   }
 
-  get voyageAndHistoryLengthFactor() {
+  get voyageLengthFactor() {
     let result = 0;
-    result += 3;
-
-    result += this.historyLengthFactor;
 
     if (this.voyage.length > 12) {
       result += 1;
@@ -107,6 +99,10 @@ class ExperiencedChinaRating extends Rating {
 
   get historyLengthFactor() {
     return this.history.length > 10 ? 1 : 0;
+  }
+
+  get voyageProfitFactor() {
+    return super.voyageProfitFactor + 3;
   }
 }
 
